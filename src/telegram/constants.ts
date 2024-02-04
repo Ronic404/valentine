@@ -1,0 +1,2 @@
+export const TOKEN = '6555236989:AAHpLCM2c2JW6M0LtIPzh_UjAgTUJhcEyZ0'
+export const TELEGRAM_ID = '234633665'

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 
 import { getCurrentTime } from './utils/getCurrentTime'
+import { sendTelegramMessage } from './telegram'
 
 import heartImg from './assets/heart.svg'
 import sadImg from './assets/sad.jpg'
@@ -32,24 +33,24 @@ function App() {
     }, 2000);
   }, [])
 
-  const handleClickYesButton = (): void => {
-    console.log('Аня нажала "Да" в', getCurrentTime())
+  const handleClickYesButton = async (): Promise<void> => {
     setShowPic('happy')
     setIsChosen(true)
+    await sendTelegramMessage(`Аня нажала "Да" в ${getCurrentTime()}`)
   }
   
-  const handleClickNoButton = (): void => {
-    console.log('Аня по ошибке нажала "Нет" в', getCurrentTime())
+  const handleClickNoButton = async (): Promise<void> => {
     setShowPic('sad')
     setIsChosen(true)
     setIsfirstAttempt(false)
     localStorage.setItem(LS_FIRST_ATTEMPT, 'false')
+    await sendTelegramMessage(`Аня по ошибке нажала "Нет" в ${getCurrentTime()}`)
   }
   
-  const handleClickAgainButton = (): void => {
-    console.log('Again', getCurrentTime())
+  const handleClickAgainButton = async (): Promise<void> => {
     setShowPic('interest')
     setIsChosen(false)
+    await sendTelegramMessage(`Аня нажала "Ещё раз" в ${getCurrentTime()}`)
   }
 
   if (isLoading) {
