@@ -65,15 +65,14 @@ function App() {
     <div>
       <h1>Valentine day</h1>
       <h2>Ann, will you be my valentine?</h2>
-      {showPic === 'interest' &&
-        <img src={interestImg} className="logo react" alt="interest" />
-      }
-      {showPic === 'happy' &&
-        <img src={happyImg} className="logo react" alt="happy" />
-      }
-      {showPic === 'sad' &&
-        <img src={sadImg} className="" alt="sad" />
-      }
+
+      <div className='pictures'>
+        {showPic === 'interest' && <img className='picture' src={interestImg} alt="interest" />}
+        {showPic === 'happy' && <img className='picture' src={happyImg} alt="happy" />}
+        {showPic === 'sad' && <img className='picture' src={sadImg} alt="sad" />}
+      </div>
+
+
       <div className='buttons'>
         {isChosen &&
           <button onClick={handleClickAgainButton}>Попробовать ещё раз</button>
