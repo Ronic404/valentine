@@ -72,7 +72,6 @@ function App() {
         {showPic === 'sad' && <img className='picture' src={sadImg} alt="sad" />}
       </div>
 
-
       <div className='buttons'>
         {isChosen &&
           <button onClick={handleClickAgainButton}>Попробовать ещё раз</button>
@@ -84,6 +83,23 @@ function App() {
           </>
         }
       </div>
+
+      <div className='heart' />
+      <div className='heart' />
+      <div className='heart' />
+      <div className='heart' />
+      <div className='heart' />
+      <div className='heart' />
+      <div className='heart' />
+      <div className='heart' />
+      <div className='heart' />
+      <div className='heart' />
+      <div className='heart' />
+      <div className='heart' />
+      <div className='heart' />
+      <div className='heart' />
+      <div className='heart' />
+      <div className='heart' />
     </div>
   )
 }
