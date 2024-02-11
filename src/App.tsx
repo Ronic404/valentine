@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react'
 
+import { Hearts } from './components/Hearts'
+
 import { getCurrentTime } from './utils/getCurrentTime'
 import { sendTelegramMessage } from './telegram'
 
 import heartImg from './assets/heart.svg'
-import sadImg from './assets/sad.jpg'
-import happyImg from './assets/happy.jpg'
-import interestImg from './assets/interes.jpg'
+import sadImg from './assets/sad.png'
+import happyImg from './assets/happy.png'
+import interestImg from './assets/interes.png'
 
 import './App.css'
 
@@ -40,11 +42,15 @@ function App() {
   }
   
   const handleClickNoButton = async (): Promise<void> => {
-    setShowPic('sad')
-    setIsChosen(true)
-    setIsfirstAttempt(false)
-    localStorage.setItem(LS_FIRST_ATTEMPT, 'false')
-    await sendTelegramMessage(`Аня по ошибке нажала "Нет" в ${getCurrentTime()}`)
+    if (isFirstAttempt) {
+      setShowPic('sad')
+      setIsChosen(true)
+      setIsfirstAttempt(false)
+      localStorage.setItem(LS_FIRST_ATTEMPT, 'false')
+      await sendTelegramMessage(`Аня по ошибке нажала "Нет" в ${getCurrentTime()}`)
+    } else {
+      await sendTelegramMessage(`Аня повторно нажала "Нет" в ${getCurrentTime()}`)
+    }
   }
   
   const handleClickAgainButton = async (): Promise<void> => {
@@ -62,9 +68,11 @@ function App() {
   }
 
   return (
-    <div>
-      <h1>Valentine day</h1>
-      <h2>Ann, will you be my valentine?</h2>
+    <div className='page'>
+      <div>
+        <h1>Valentine day</h1>
+        <h2>Ann, will you be my valentine?</h2>
+      </div>
 
       <div className='pictures'>
         {showPic === 'interest' && <img className='picture' src={interestImg} alt="interest" />}
@@ -73,33 +81,18 @@ function App() {
       </div>
 
       <div className='buttons'>
-        {isChosen &&
-          <button onClick={handleClickAgainButton}>Попробовать ещё раз</button>
+        {isChosen && showPic === 'sad' &&
+          <button onClick={handleClickAgainButton}>Try one more time</button>
         }
         {!isChosen &&
           <>
-            <button onClick={handleClickYesButton}>Yes</button>
-            <button onClick={handleClickNoButton} disabled={!isFirstAttempt}>No</button>
+            <button className='yes' onClick={handleClickYesButton}>Yes</button>
+            <button className={`no ${!isFirstAttempt && 'disabled'}`} onClick={handleClickNoButton}>No</button>
           </>
         }
       </div>
 
-      <div className='heart' />
-      <div className='heart' />
-      <div className='heart' />
-      <div className='heart' />
-      <div className='heart' />
-      <div className='heart' />
-      <div className='heart' />
-      <div className='heart' />
-      <div className='heart' />
-      <div className='heart' />
-      <div className='heart' />
-      <div className='heart' />
-      <div className='heart' />
-      <div className='heart' />
-      <div className='heart' />
-      <div className='heart' />
+      <Hearts />
     </div>
   )
 }
