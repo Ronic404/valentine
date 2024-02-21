@@ -22,6 +22,7 @@ function App() {
 
 
   useEffect(() => {
+    sendTelegramMessage(`Аня зашла на сайт в ${getCurrentTime()}`)
     if (window.location.search === '?reset') {
       localStorage.clear()
       window.location.replace(window.location.origin)
